@@ -22,10 +22,6 @@ protected:
     }
 
     void MakePoint() {
-
-    }
-
-    void MakeStar() {
         auto* v1 = machine.order();
         auto* v2 = machine.order();
 
@@ -35,12 +31,25 @@ protected:
         machine.stack.push_back({v1, {v2}});
         machine.stack.push_back({v3, {v4}});
 
-        machine.star();
+        machine.point();
 
         EXPECT_EQ(machine.stack.size(), 1);
         EXPECT_EQ(v2->edges[""], std::unordered_set<CVertex*>({v3}));
         EXPECT_EQ(machine.stack.back().final, std::unordered_set<CVertex*>({v4}));
         EXPECT_EQ(machine.stack.back().vertex, v1);
+    }
+
+    void MakeStar() {
+        auto* v1 = machine.order();
+        auto* v2 = machine.order();
+
+        machine.stack.push_back({v1, {v2}});
+
+        machine.star();
+
+        EXPECT_EQ(machine.stack.size(), 1);
+        EXPECT_EQ(v2->edges[""], std::unordered_set<CVertex*>({machine.stack.back().vertex}));
+        EXPECT_EQ(machine.stack.back().final, std::unordered_set<CVertex*>({machine.stack.back().vertex}));
     }
 
     void MakePlus() {
@@ -64,7 +73,7 @@ protected:
 
     void testMake() {
         MakePoint();
-//        MakeStar();
+        MakeStar();
         MakePlus();
     }
 
