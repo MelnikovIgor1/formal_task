@@ -13,4 +13,3 @@ TEST_F(TestMachine, testStep) {
     testStep();
 }
 
-#endif
