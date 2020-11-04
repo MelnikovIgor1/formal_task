@@ -7,41 +7,35 @@
 
 class TestMachine: public ::testing::Test {
 protected:
-
+    CMachine machine;
 
     void testAdd() {
-        CMachine machine;
+        machine.clear();
         machine.add("a");
         EXPECT_EQ(machine.vector.size(), 2);
         EXPECT_EQ(machine.stack.back().vertex->edges.size(), 1);
-        EXPECT_EQ(machine.stack.back().vertex->edges[""].size(), 1);
+        EXPECT_EQ(machine.stack.back().vertex->edges["a"].size(), 1);
     }
 
     void PutToStack() {
-//        CInfo x1(11);
-//        x1[1] = {true, true};
-//        x1[2] = {true, false};
-//
-//        CInfo x2(11);
-//        x2[2] = {true, true};
-//        x2[4] = {true, false};
-//
-//        machine.stack.push_back(x1);
-//        machine.stack.push_back(x2);
+
     }
 
     void MakePoint() {
-//        machine.SetMachine('a', 10);
-//
-//        PutToStack();
-//
-//        machine.make('.');
-//
-//        CInfo expected(11);
-//        expected[2] = {true, false};
-//        expected[3] = {true, true};
-//        expected[5] = {true, false};
-//        EXPECT_EQ(machine.stack.back(), expected);
+        auto* v1 = machine.order();
+        auto* v2 = machine.order();
+
+        auto* v3 = machine.order();
+        auto* v4 = machine.order();
+
+        machine.stack.push_back({v1, {v2}});
+        machine.stack.push_back({v3, {v4}});
+
+        machine.point();
+
+        EXPECT_EQ(machine.stack.size(), 1);
+        EXPECT_EQ(machine.stack.back().vertex->edges[""].size(), 2);
+        EXPECT_EQ(machine.stack.back().final.size(), 2);
     }
 
     void MakeStar() {
@@ -88,7 +82,7 @@ protected:
     }
 
     void testMake() {
-//        MakePoint();
+        MakePoint();
 //        MakeStar();
 //        MakePlus();
     }

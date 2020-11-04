@@ -39,6 +39,11 @@ struct CMachine {
     void load(const std::string& string);
     bool result(int k, char x);
 
+    void clear() {
+        vector.clear();
+        stack.clear();
+    }
+
     ~CMachine();
 
     std::unordered_set<CVertex*> apply(std::unordered_set<CVertex*>& set_, const std::string& letter);
