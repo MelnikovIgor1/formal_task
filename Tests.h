@@ -14,7 +14,7 @@ protected:
         machine.add("a");
         EXPECT_EQ(machine.vector.size(), 2);
         EXPECT_EQ(machine.stack.back().vertex->edges.size(), 1);
-        EXPECT_EQ(machine.stack.back().vertex[""], 1);
+        EXPECT_EQ(machine.stack.back().vertex->edges[""], 1);
     }
 
     void PutToStack() {
