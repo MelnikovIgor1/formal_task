@@ -80,21 +80,6 @@ protected:
         MakePlus();
     }
 
-    void StepOperation() {
-//        machine.SetMachine('a', 10);
-//        machine.stack.clear();
-//        PutToStack();
-//        machine.step('.');
-//        EXPECT_EQ(machine.stack.size(), 1);
-    }
-
-    void StepLetter() {
-//        machine.SetMachine('a', 10);
-//        machine.stack.clear();
-//        machine.step('a');
-//        EXPECT_EQ(machine.stack.size(), 1);
-    }
-
     void testFindAll() {
         machine.clear();
         auto* v1 = machine.order();
