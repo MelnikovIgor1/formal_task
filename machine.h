@@ -1,3 +1,5 @@
+#ifndef MACHINE
+#define MACHINE
 
 #include <iostream>
 #include <vector>
@@ -11,9 +13,9 @@ struct CInfo {
     }
     int K;
 
-    std::pair<bool, bool>& operator [](size_t i) {
-        return info[i];
-    }
+    std::pair<bool, bool>& operator [](size_t i);// {
+//        return info[i];
+//    }
 
     std::vector<std::pair<bool, bool>> info;
 
@@ -145,3 +147,5 @@ struct Machine {
         }
     }
 };
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef MACHINE_TESTS
+#define MACHINE_TESTS
+
 #include <gtest/gtest.h>
 #include "machine.h"
 
@@ -121,3 +124,4 @@ protected:
 
 };
 
+#endif
