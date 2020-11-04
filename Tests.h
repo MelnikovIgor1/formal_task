@@ -7,7 +7,7 @@
 
 class TestMachine: public ::testing::Test {
 protected:
-    Machine machine;
+    CMachine machine;
 
     void testAdd() {
 //        machine.SetMachine('a', 10);

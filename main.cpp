@@ -7,7 +7,7 @@ int main() {
 
     std::cin >> str >> x >> k;
 
-    СMachine machine;
+    CMachine machine;
 
     for (auto letter: str) {
         machine.step(letter);
