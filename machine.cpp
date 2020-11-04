@@ -1,11 +1,27 @@
-#ifndef MACHINE_CPP
-#define MACHINE_CPP
-
 #include "machine.h"
 
 std::pair<bool, bool>& CInfo::operator [](size_t i) {
     return info[i];
 }
+
+bool CInfo::operator==(const CInfo& other) const {
+    return info == other.info;
+}
+
+Machine::Machine(char letter, int k) :
+    stack(),
+    x(letter),
+    k(k){
+
+}
+
+Machine::Machine() :
+    stack(),
+    x(),
+    k(){
+
+}
+
 CInfo point(const CInfo& x1, const CInfo& x2) {
     CInfo item(x1.K);
 
@@ -58,4 +74,3 @@ CInfo plus(const CInfo& x1) {
 
     return item;
 }
-#endif

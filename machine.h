@@ -13,15 +13,10 @@ struct CInfo {
     }
     int K;
 
-    std::pair<bool, bool>& operator [](size_t i);// {
-//        return info[i];
-//    }
-
+    std::pair<bool, bool>& operator [](size_t i);
     std::vector<std::pair<bool, bool>> info;
 
-    bool operator==(const CInfo& other) const {
-        return info == other.info;
-    }
+    bool operator==(const CInfo& other) const;
 };
 
 CInfo point(const CInfo& x1, const CInfo& x2);
@@ -31,19 +26,9 @@ CInfo star(const CInfo& x1);
 CInfo plus(const CInfo& x1);
 
 struct Machine {
-    Machine(char letter, int k) :
-        stack(),
-        x(letter),
-        k(k){
+    Machine(char letter, int k);
 
-    }
-
-    Machine() :
-        stack(),
-        x(),
-        k(){
-
-    }
+    Machine();
 
     void SetMachine(char letter, int K) {
         x = letter;
