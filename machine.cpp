@@ -34,7 +34,7 @@ std::unordered_set<CVertex*> find_all(const std::unordered_set<CVertex*>& set_) 
     return used;
 }
 
-void СMachine::add(const std::string& letter) {
+void CMachine::add(const std::string& letter) {
     auto* item1 = order();
     auto* item2 = order();
     item2->final = true;
@@ -44,14 +44,14 @@ void СMachine::add(const std::string& letter) {
     stack.push_back({item1, {item2}});
 }
 
-CVertex* СMachine::order() {
+CVertex* CMachine::order() {
     auto* item = new CVertex();
     vector.push_back(item);
 
     return item;
 }
 
-void СMachine::point() {
+void CMachine::point() {
     auto item2 = stack.back();
     stack.pop_back();
     auto item1 = stack.back();
@@ -64,7 +64,7 @@ void СMachine::point() {
     stack.push_back({item1.vertex, item2.final});
 }
 
-void СMachine::star() {
+void CMachine::star() {
     auto item = stack.back();
     stack.pop_back();
 
@@ -77,7 +77,7 @@ void СMachine::star() {
     stack.push_back({new_v, {new_v}});
 }
 
-void СMachine::plus() {
+void CMachine::plus() {
     auto item2 = stack.back();
     stack.pop_back();
     auto item1 = stack.back();
@@ -93,7 +93,7 @@ void СMachine::plus() {
     stack.push_back({new_v, set_});
 }
 
-void СMachine::step(char letter) {
+void CMachine::step(char letter) {
     switch (letter) {
         case '.':
             point();
@@ -112,13 +112,13 @@ void СMachine::step(char letter) {
     }
 }
 
-СMachine::~СMachine() {
+CMachine::~CMachine() {
     for (auto& item: vector) {
         delete item;
     }
 }
 
-std::unordered_set<CVertex*> СMachine::apply(std::unordered_set<CVertex*>& set_, const std::string& letter) {
+std::unordered_set<CVertex*> CMachine::apply(std::unordered_set<CVertex*>& set_, const std::string& letter) {
     std::unordered_set<CVertex*> answer;
     std::unordered_set<CVertex*> last = find_all(set_);
 

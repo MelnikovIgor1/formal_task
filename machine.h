@@ -22,7 +22,7 @@ struct Automat {
 
 std::unordered_set<CVertex*> find_all(const std::unordered_set<CVertex*>& set_);
 
-struct СMachine {
+struct CMachine {
     std::vector<CVertex*> vector;
     std::deque<Automat> stack;
 
@@ -35,7 +35,7 @@ struct СMachine {
     void star();
     void plus();
     void step(char letter);
-    ~СMachine();
+    ~CMachine();
 
     std::unordered_set<CVertex*> apply(std::unordered_set<CVertex*>& set_, const std::string& letter);
 
