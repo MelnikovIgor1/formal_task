@@ -22,6 +22,57 @@ Machine::Machine() :
 
 }
 
+void Machine::SetMachine(char letter, int K) {
+    x = letter;
+    k = K;
+}
+
+void Machine::make(char operation) {
+    if (operation == '.') {
+        auto x2 = stack.back();
+        stack.pop_back();
+        auto x1 = stack.back();
+        stack.pop_back();
+
+        stack.push_back(point(x1, x2));
+    }
+    if (operation == '*') {
+        auto x1 = stack.back();
+        stack.pop_back();
+
+        stack.push_back(star(x1));
+    }
+    if (operation == '+') {
+        auto x1 = stack.back();
+        stack.pop_back();
+
+        stack.push_back(plus(x1));
+    }
+}
+
+void Machine::add(char letter) {
+    CInfo item(k + 1);
+    if (letter == x) {
+        item.info[1] = {true, true};
+    } else {
+        item.info[0] = {true, false};
+    }
+    stack.push_back(item);
+}
+
+void Machine::step(char letter) {
+    switch (letter) {
+        case '.':
+        case '*':
+        case '+':
+            make(letter);
+            break;
+        default:
+            add(letter);
+            break;
+    }
+}
+
 CInfo point(const CInfo& x1, const CInfo& x2) {
     CInfo item(x1.K);
 
