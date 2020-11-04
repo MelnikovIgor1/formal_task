@@ -7,23 +7,14 @@
 
 class TestMachine: public ::testing::Test {
 protected:
-    CMachine machine;
+
 
     void testAdd() {
-//        machine.SetMachine('a', 10);
-//
-//        machine.add('b');
-//
-//        CInfo expected(11);
-//        expected[0] = {true, false};
-//
-//        EXPECT_EQ(machine.stack.back(), expected);
-//
-//        machine.add('a');
-//
-//        CInfo expected2(11);
-//        expected2[1] = {true, true};
-//        EXPECT_EQ(machine.stack.back(), expected2);
+        CMachine machine;
+        machine.add("a");
+        EXPECT_EQ(machine.vector.size(), 2);
+        EXPECT_EQ(machine.stack.back().vertex->edges.size(), 1);
+        EXPECT_EQ(machine.stack.back().vertex[""], 1);
     }
 
     void PutToStack() {
