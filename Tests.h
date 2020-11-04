@@ -72,8 +72,11 @@ protected:
     }
 
     void testMake() {
+        machine.clear();
         MakePoint();
+        machine.clear();
         MakeStar();
+        machine.clear();
         MakePlus();
     }
 
