@@ -134,17 +134,17 @@ std::unordered_set<CVertex*> CMachine::apply(std::unordered_set<CVertex*>& set_,
 
 void CMachine::load(const std::string& string) {
     for (auto letter: string) {
-        machine.step(letter);
+        step(letter);
     }
 }
 
 bool CMachine::result(int k, char x) {
-    std::unordered_set<CVertex*> start = {machine.stack.back().vertex};
+    std::unordered_set<CVertex*> start = {stack.back().vertex};
 
     for (int i = 0; i < k; ++i) {
         std::string str_;
         str_ += x;
-        start = machine.apply(start, str_);
+        start = apply(start, str_);
     }
 
     return !start.empty();
