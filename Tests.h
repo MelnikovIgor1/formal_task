@@ -95,9 +95,32 @@ protected:
 //        EXPECT_EQ(machine.stack.size(), 1);
     }
 
-    void testStep() {
-//        StepOperation();
-//        StepLetter();
+    void testFindAll() {
+        machine.clear();
+        auto* v1 = machine.order();
+        auto* v2 = machine.order();
+
+        auto* v3 = machine.order();
+        auto* v4 = machine.order();
+        make_edge(v1, v2, "");
+        make_edge(v2, v3, "");
+        make_edge(v3, v4, "");
+
+        EXPECT_EQ(find_all({v1}), std::unordered_set<CVertex*>({v1, v2, v3, v4}));
+    }
+
+    void testApply() {
+        machine.clear();
+        auto* v1 = machine.order();
+        auto* v2 = machine.order();
+
+        auto* v3 = machine.order();
+        auto* v4 = machine.order();
+        make_edge(v1, v2, "");
+        make_edge(v2, v3, "a");
+        make_edge(v3, v4, "");
+
+        EXPECT_EQ(machine.apply({v1}, "a"), std::unordered_set<CVertex*>({v3, v4}));
     }
 
     void testBasic() {

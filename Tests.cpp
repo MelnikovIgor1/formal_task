@@ -9,10 +9,14 @@ TEST_F(TestMachine, testMake) {
     testMake();
 }
 
-TEST_F(TestMachine, testStep) {
-    testStep();
+TEST_F(TestMachine, testFindAll) {
+    testFindAll();
 }
 
 TEST_F(TestMachine, testBasic) {
     testBasic();
+}
+
+TEST_F(TestMachine, testApply) {
+    testApply();
 }
