@@ -39,7 +39,8 @@ protected:
 
         EXPECT_EQ(machine.stack.size(), 1);
         EXPECT_EQ(v2->edges[""], std::unordered_set<CVertex*>({v3}));
-        //EXPECT_EQ(machine.stack.back().final.size(), 2);
+        EXPECT_EQ(machine.stack.back().final, std::unordered_set<CVertex*>({v4}));
+        EXPECT_EQ(machine.stack.back().vertex, v1);
     }
 
     void MakePlus() {
