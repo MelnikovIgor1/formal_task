@@ -46,7 +46,7 @@ struct CMachine {
 
     ~CMachine();
 
-    std::unordered_set<CVertex*> apply(std::unordered_set<CVertex*>& set_, const std::string& letter);
+    std::unordered_set<CVertex*> apply(const std::unordered_set<CVertex*>& set_, const std::string& letter);
 };
 
 

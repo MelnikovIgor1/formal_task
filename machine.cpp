@@ -118,7 +118,7 @@ CMachine::~CMachine() {
     }
 }
 
-std::unordered_set<CVertex*> CMachine::apply(std::unordered_set<CVertex*>& set_, const std::string& letter) {
+std::unordered_set<CVertex*> CMachine::apply(const std::unordered_set<CVertex*>& set_, const std::string& letter) {
     std::unordered_set<CVertex*> answer;
     std::unordered_set<CVertex*> last = find_all(set_);
 
