@@ -35,28 +35,13 @@ struct CMachine {
     void star();
     void plus();
     void step(char letter);
+
+    void load(const std::string& string);
+    bool result(int k, char x);
+
     ~CMachine();
 
     std::unordered_set<CVertex*> apply(std::unordered_set<CVertex*>& set_, const std::string& letter);
-
-//    void print() {
-//        for (auto item: stack.back().final) {
-//            printf("%p ", item);
-//        }
-//        printf("\n");
-//        printf("%p\n", stack.back().vertex);
-//        for (auto item: vector) {
-//            printf("%p\n   ", item);
-//            for (const auto& edge: item->edges) {
-//                for (auto word: edge.second) {
-//                    std::cout << "[" << edge.first;
-//                    printf(", %p]", word);
-//                }
-//
-//            }
-//            std::cout << "\n";
-//        }
-//    }
 };
 
 
