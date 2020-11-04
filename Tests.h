@@ -100,6 +100,15 @@ protected:
 //        StepLetter();
     }
 
+    void testBasic() {
+        machine.clear();
+        machine.load("ab+c.aba.*.bac.+.+*");
+        EXPECT_EQ(machine.result(2, 'a'), true);
+        machine.clear();
+        machine.load("acb..bab.c.*.ab.ba.+.+*a.");
+        EXPECT_EQ(machine.result(3, 'b'), false);
+    }
+
 };
 
 #endif

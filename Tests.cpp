@@ -13,3 +13,6 @@ TEST_F(TestMachine, testStep) {
     testStep();
 }
 
+TEST_F(TestMachine, testBasic) {
+    testBasic();
+}
