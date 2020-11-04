@@ -1,127 +1,133 @@
 #include "machine.h"
 
-std::pair<bool, bool>& CInfo::operator [](size_t i) {
-    return info[i];
-}
-
-bool CInfo::operator==(const CInfo& other) const {
-    return info == other.info;
-}
-
-Machine::Machine(char letter, int k) :
-    stack(),
-    x(letter),
-    k(k){
-
-}
-
-Machine::Machine() :
-    stack(),
-    x(),
-    k(){
-
-}
-
-void Machine::SetMachine(char letter, int K) {
-    x = letter;
-    k = K;
-}
-
-void Machine::make(char operation) {
-    if (operation == '.') {
-        auto x2 = stack.back();
-        stack.pop_back();
-        auto x1 = stack.back();
-        stack.pop_back();
-
-        stack.push_back(point(x1, x2));
-    }
-    if (operation == '*') {
-        auto x1 = stack.back();
-        stack.pop_back();
-
-        stack.push_back(star(x1));
-    }
-    if (operation == '+') {
-        auto x1 = stack.back();
-        stack.pop_back();
-
-        stack.push_back(plus(x1));
-    }
-}
-
-void Machine::add(char letter) {
-    CInfo item(k + 1);
-    if (letter == x) {
-        item.info[1] = {true, true};
+void make_edge(CVertex* a, CVertex* b, const std::string& word) {
+    if (a->edges.find(word) == a->edges.end()) {
+        a->edges.insert({word, {b}});
     } else {
-        item.info[0] = {true, false};
-    }
-    stack.push_back(item);
-}
-
-void Machine::step(char letter) {
-    switch (letter) {
-        case '.':
-        case '*':
-        case '+':
-            make(letter);
-            break;
-        default:
-            add(letter);
-            break;
+        a->edges.find(word)->second.insert(b);
     }
 }
 
-CInfo point(const CInfo& x1, const CInfo& x2) {
-    CInfo item(x1.K);
+std::unordered_set<CVertex*> find_all(const std::unordered_set<CVertex*>& set_) {
+    std::queue<CVertex*> queue;
+    std::unordered_set<CVertex*> used;
 
-    for (int i = 0; i < x1.K; ++i) {
-        for (int j = 0; j < x2.K; ++j) {
-            if (i + j < x1.K && x1.info[i].first && x2.info[j].first) {
-                if (x1.info[i].second) {
-                    item.info[i + j] = {true, x1.info[i].second && x2.info[j].second};
-                } else {
-                    item.info[i] = {true, false};
+    for (auto& item: set_) {
+        queue.push(item);
+        used.insert(item);
+    }
+
+    while (!queue.empty()) {
+        CVertex* current = queue.front();
+        queue.pop();
+
+        if (current->edges.find("") != current->edges.end()) {
+            for (auto item: current->edges[""]) {
+                if (used.find(item) == used.end()) {
+                    used.insert(item);
+                    queue.push(item);
                 }
             }
         }
     }
 
+    return used;
+}
+
+void СMachine::add(const std::string& letter) {
+    auto* item1 = order();
+    auto* item2 = order();
+    item2->final = true;
+
+    make_edge(item1, item2, (letter));
+
+    stack.push_back({item1, {item2}});
+}
+
+CVertex* СMachine::order() {
+    auto* item = new CVertex();
+    vector.push_back(item);
+
     return item;
 }
 
-CInfo star(const CInfo& x1) {
-    CInfo item(x1.K);
-    item.info = x1.info;
-    item.info[0] = {true, true};
+void СMachine::point() {
+    auto item2 = stack.back();
+    stack.pop_back();
+    auto item1 = stack.back();
+    stack.pop_back();
 
-    for (int i = 1; i < x1.K; ++i) {
-        if (x1.info[i].first && x1.info[i].second) {
-            int h = i;
-            while (h < x1.K) {
-                item.info[h] = {true, true};
-                h += i;
-            }
-        }
+    for (auto& item: item1.final) {
+        make_edge(item, item2.vertex, "");
     }
 
-    return item;
+    stack.push_back({item1.vertex, item2.final});
 }
 
-CInfo plus(const CInfo& x1) {
-    CInfo item(x1.K);
-    item.info = x1.info;
+void СMachine::star() {
+    auto item = stack.back();
+    stack.pop_back();
 
-    for (int i = 1; i < x1.K; ++i) {
-        if (x1.info[i].first && x1.info[i].second) {
-            int h = i;
-            while (h < x1.K) {
-                item.info[h] = {true, true};
-                h += i;
-            }
-        }
+    auto* new_v = order();
+    make_edge(new_v, item.vertex, "");
+    for (auto& vertex: item.final) {
+        make_edge(vertex, new_v, "");
     }
 
-    return item;
+    stack.push_back({new_v, {new_v}});
+}
+
+void СMachine::plus() {
+    auto item2 = stack.back();
+    stack.pop_back();
+    auto item1 = stack.back();
+    stack.pop_back();
+
+    auto* new_v = order();
+    make_edge(new_v, item1.vertex, "");
+    make_edge(new_v, item2.vertex, "");
+
+    auto set_ = item1.final;
+    set_.insert(item2.final.begin(), item2.final.end());
+
+    stack.push_back({new_v, set_});
+}
+
+void СMachine::step(char letter) {
+    switch (letter) {
+        case '.':
+            point();
+            break;
+        case '*':
+            star();
+            break;
+        case '+':
+            plus();
+            break;
+        default:
+            std::string p = "";
+            p += letter;
+            add(p);
+            break;
+    }
+}
+
+СMachine::~СMachine() {
+    for (auto& item: vector) {
+        delete item;
+    }
+}
+
+std::unordered_set<CVertex*> СMachine::apply(std::unordered_set<CVertex*>& set_, const std::string& letter) {
+    std::unordered_set<CVertex*> answer;
+    std::unordered_set<CVertex*> last = find_all(set_);
+
+    for (auto item: last) {
+        if (item->edges.find(letter) != item->edges.end())
+            for (auto x: item->edges[letter]) {
+                answer.insert(x);
+            }
+    }
+
+    return find_all(answer);
 }
