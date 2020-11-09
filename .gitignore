@@ -5,3 +5,4 @@ CMakeCache.txt
 out
 Test
 .idea/*
+cmake-build-debug/*
