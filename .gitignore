@@ -4,3 +4,6 @@ Makefile
 CMakeCache.txt
 out
 Test
+cmake-build-debug/*
+.idea/*
+build/*
